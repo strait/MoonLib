@@ -1,4 +1,3 @@
-
 local type = type
 local pairs = pairs
 local table = table
