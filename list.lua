@@ -51,24 +51,6 @@ function reduce (fn, list, init)
 end
 
 --[[
-Returns a string of the items in `list` joined together. If the optional `separator` is given,
-place `separator` between each item for the new string.
-
-    local seq = {'a', 'b', 'c', 'd', 'e', 'f'}
-    join(seq) == "abcdef"
-    join(seq, ' ') == "a b c d e f"
-]]
-function join (list, separator)
-    separator = separator or ''
-    return reduce(
-        function (a, b) return a..separator..b end,
-        slice(list, 2),
-        list[1]
-    )
-
-end
-
---[[
 Return a reversed copy of `list`.
 
     reverse({"a", "b", "c"}) == {"c", "b", "a"}
