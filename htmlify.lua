@@ -40,7 +40,7 @@ local function make_tag(name, data, ident)
             end
         end
         return
-            "<" .. name .. ident .. table.concat(attrs) .. ">" .. list.flatten(data) ..
+            "<" .. name .. ident .. table.concat(attrs) .. ">" .. table.concat(list.flatten(data)) ..
             "</" .. name .. ">"
     else
         return "<" .. name .. ident .. ">" .. tostring(data) .. "</" .. name .. ">"
