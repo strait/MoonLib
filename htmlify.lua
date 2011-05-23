@@ -2,7 +2,7 @@
     local h = ...
 ]]
 
-local list = require'moonloop.list'
+local list = require'moonlib.list'
 
 local function make_tag(name, data, ident)
     -- Make id or class attributes

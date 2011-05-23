@@ -1,4 +1,4 @@
-local tbx = require'moonloop.tableAux'
+local tbx = require'moonlib.tableAux'
 local type = type
 local libassert = assert
 local lfs = require'lfs'
