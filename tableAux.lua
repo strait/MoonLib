@@ -6,6 +6,38 @@ local getmetatable = getmetatable
 module(...)
 
 --[[
+Update the `target` table with the pairs in the `source` table. If a `source` key is present in
+`target`, then the value for the `source` key replaces the value for the matching key in
+`target`, unless the optional `conflictFunc` function is passed in. Then `conflictFunc` is called
+with three values: the matching key, the `target` table, and the `source` table, in that order.
+The return value from conflict becomes the replacement value in `target`, for the matching key.
+
+Integer keys from the array part of the tables conflict in the same way as keys from the hash part.
+If you want the array values of `source` to be appended to the array part of `target`, then
+use the `list.merge` function.
+
+    local t1 = {color = "blue", length = 78}
+    local t2 = {color = "green", width = 34}
+    update(t1, t2)
+    t1 == {color = "green", length = 78, width = 34}
+
+    t1 = {color = "blue", length = 78}
+    local conflict = function (k, t, s) return t[k]..' '..s[k] end
+    update(t1, t2, conflict) == {color = "blue green", length = 78, width = 34}
+    t1 == {color = "blue green", length = 78, width = 34}
+]]
+function update (target, source, conflictFunc)
+    for k,v in pairs(source) do
+        if target[k] and conflictFunc then
+            target[k] = conflictFunc(k, target, source)
+        else
+            target[k] = v
+        end
+    end
+    return target
+end
+
+--[[
 Compare `value1` with `value2`. If they are tables, then compare their keys and fields recursively.
 If `ignoreMT` is true, ignore `__eq` metamethod. Return true if all the values are equal.
 
