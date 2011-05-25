@@ -234,6 +234,25 @@ function merge (target, source)
 end
 
 --[[
+Return the `field` for the first item in `list` or if not existing,
+the empty string.
+
+    local result1 = {{name="Jon"}, other = 43}
+    local result2 = {other = 43}
+    
+    itemField(result1, "name") == "Jon"
+    itemField(result2, "name") == ""
+]]
+function itemField (list, field)
+    local res = ''
+    if #list > 0 then
+        local lf = list[1][field]
+        if lf then res = lf end
+    end
+    return res
+end
+
+--[[
 Concatenate lists or items into one new list and return this new list. Potentially reduces nesting by a level.
 If a single table value is passed, then operate the item values inside instead.
 
